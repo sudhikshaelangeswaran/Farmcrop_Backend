@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\api\BaseController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,15 @@ class AuthController extends Controller
 
         return $this->sendResponse($success, 'User register successfully.');
     }
+
+    public function login(Request $request){
+        $credentials = $request->only('email', 'password');
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        return $this->respondWithToken($token);
+    }
+
     protected function respondWithToken($token)
     {
         return [
@@ -45,5 +55,27 @@ class AuthController extends Controller
         ];
 
         return response()->json($response, 200);
+    }
+
+    /**
+     * return error response.
+     *
+     * @param  string $error
+     * @param  array<int, string> $errorMessages
+     * @param  int $code
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendError($error, $errorMessages = [], $code = 404)
+    {
+        $response = [
+            'success' => false,
+            'message' => $error,
+        ];
+
+        if (!empty($errorMessages)) {
+            $response['data'] = $errorMessages;
+        }
+
+        return response()->json($response, $code);
     }
 }
