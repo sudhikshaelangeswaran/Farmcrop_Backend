@@ -17,6 +17,11 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function (){
         Route::get('allfarmhouse', 'App\Http\Controllers\FarmHouseController@index');
         Route::post('addfarmhouse', 'App\Http\Controllers\FarmHouseController@store');
         Route::delete('deletefarmhouse/{id}', 'App\Http\Controllers\FarmHouseController@delete');
+        Route::get('allproduct', 'App\Http\Controllers\ProductController@index');
+        Route::post('addproduct', 'App\Http\Controllers\ProductController@store');
+        Route::delete('deleteproduct/{id}', 'App\Http\Controllers\ProductController@delete');
+        Route::put('updateproduct/{id}', 'App\Http\Controllers\ProductController@update');
+        Route::get('allcategory', 'App\Http\Controllers\ProductController@allcategory');
     });
 });
 

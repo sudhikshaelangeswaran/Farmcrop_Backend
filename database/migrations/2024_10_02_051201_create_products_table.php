@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('farm_house_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('name');
             $table->decimal('price', 10, 2);
             $table->string('description');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('farm_house_id')->references('id')->on('farm_houses')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
