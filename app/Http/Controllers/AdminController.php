@@ -28,14 +28,29 @@ class AdminController extends Controller
 
     public function farms()
     {
-        $farms = FarmHouse::all();
-        return view('admin.farmhouse.view', compact('farms'));
+        $farmhouses = FarmHouse::all();
+        return view('admin.farmhouse.view', compact('farmhouses'));
 
     }
 
     public function farmcreate()
     {
         return view('admin.farmhouse.create');
+    }
+
+    public function farmstore(Request $request)
+    {
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->extension();
+        $request->image->storeAs('public/farmhouse', $imageName);
+
+        FarmHouse::create([
+            'name' => $request->name,
+            'location' => $request->location,
+            'description' => $request->description,
+            'image' => $imageName,
+        ]);
+        return redirect()->route('admin.farms');
     }
 
     public function categories()
@@ -47,5 +62,18 @@ class AdminController extends Controller
     public function categorycreate()
     {
         return view('admin.categorie.create');
+    }
+
+    public function categorystore(Request $request)
+    {
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->extension();
+        $request->image->storeAs('public/category', $imageName);
+
+        Category::create([
+            'name' => $request->name,
+            'image' => $imageName,
+        ]);
+        return redirect()->route('admin.categories');
     }
 }

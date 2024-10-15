@@ -17,15 +17,27 @@ Auth::routes();
 
 Route::middleware(['auth:web'])->group(function () {
     Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+
+
     Route::get('/admin/products', [App\Http\Controllers\AdminController::class, 'products'])->name('admin.products');
     Route::get('admin/products/create', [App\Http\Controllers\AdminController::class, 'productcreate'])->name('admin.products.create');
+
+
     Route::get('admin/farms', [App\Http\Controllers\AdminController::class, 'farms'])->name('admin.farms');
     Route::get('admin/farms/create', [App\Http\Controllers\AdminController::class, 'farmcreate'])->name('admin.farmhouse.create');
+    Route::post('admin/farms/store', [App\Http\Controllers\AdminController::class, 'farmstore'])->name('admin.farmhouse.store');
+    Route::get('admin/farms/edit/{id}', [App\Http\Controllers\AdminController::class, 'farmsedit'])->name('admin.farmhouse.edit');
+    Route::post('admin/farms/update/{id}', [App\Http\Controllers\AdminController::class, 'farmsupdate'])->name('admin.farmhouse.update');
+    Route::get('admin/farms/delete/{id}', [App\Http\Controllers\AdminController::class, 'farmsdelete'])->name('admin.farmhouse.delete');
+
     Route::get('admin/categories', [App\Http\Controllers\AdminController::class, 'categories'])->name('admin.categories');
     Route::get('admin/category/create', [App\Http\Controllers\AdminController::class, 'categorycreate'])->name('admin.category.create');
+    Route::post('admin/category/store', [App\Http\Controllers\AdminController::class, 'categorystore'])->name('admin.category.store');
     Route::get('admin/category/edit/{id}', [App\Http\Controllers\AdminController::class, 'categoryedit'])->name('admin.category.edit');
     Route::post('admin/category/update/{id}', [App\Http\Controllers\AdminController::class, 'categoryupdate'])->name('admin.category.update');
     Route::get('admin/category/delete/{id}', [App\Http\Controllers\AdminController::class, 'categorydelete'])->name('admin.category.delete');
+
+
     Route::post('/admin/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('admin.logout');
 });
 
