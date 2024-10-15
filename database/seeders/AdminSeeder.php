@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $Admins = [[
-            'name' => "Admin",
+            'name' => "AdminController",
             'email'=> "admin@gmail.com",
             'password'=> "password",
             'role'=>"admin",
